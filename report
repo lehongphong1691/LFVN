@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotte Finance - Campaign Performance Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!--
+      Narrative Plan:
+      The infographic tells a story starting from a high-level overview (Overall Performance), then drills down into specific performance dimensions (Monthly, Channel, Location, etc.). Each section presents data visually and is accompanied by key insights. The story concludes with specific, actionable recommendations for future campaigns, focusing on Landing Page optimization and strategic budget allocation.
+
+      Visualization Choices (Justification, NO SVG/Mermaid):
+      - Overall Performance: Goal: Inform/Compare. Big Number Cards (HTML/CSS) for impact. Grouped Bar Chart (Chart.js/Canvas) to clearly compare Plan vs. Actual.
+      - Monthly Performance: Goal: Change. Combination Bar/Line Chart (Chart.js/Canvas) is ideal for showing the relationship between a volume metric (Budget) and rate metrics (costs, percentages) over time.
+      - Channel Performance: Goal: Compare. Combination Bar/Line Chart (Chart.js/Canvas) effectively compares budget allocation against multiple performance KPIs for a few categories.
+      - Location Performance: Goal: Compare/Organize. An Ordered Horizontal Bar Chart (Chart.js/Canvas) is excellent for ranking locations by performance (% Cost/Disbursement) and is easy to read.
+      - Landing Page Performance: Goal: Compare. A Grouped Bar Chart (Chart.js/Canvas) provides a direct, easy-to-understand comparison between two competing entities on multiple metrics.
+      - Top Keyword Groups: Goal: Organize/Rank. An Ordered Horizontal Bar Chart (Chart.js/Canvas) clearly visualizes the top-performing keyword groups, making it easy to see the ranking.
+      - Audience Performance: Goal: Compare. A Polar Area Chart (Chart.js/Canvas) offers visual variety while still effectively comparing the magnitude of performance (% Cost/Disbursement) across different audience segments.
+      - Banner Performance: Goal: Compare. A Combination Bar/Line Chart (Chart.js/Canvas) is used to show multiple KPIs (costs as bars, final efficiency as a line) for a clear A/B comparison.
+      - LP Optimization: Goal: Organize/Inform. A diagram built with structured HTML/CSS and Tailwind is used to present a process flow and comparative concepts, avoiding SVG/Mermaid.
+      - Key Learnings/Recommendations: Goal: Inform/Organize. Styled lists using HTML/CSS provide a clear, scannable summary of key takeaways and actions.
+
+      Confirmation: NEITHER Mermaid JS NOR SVG were used in this output. All charts are rendered on Canvas by Chart.js. All diagrams are built with HTML/CSS.
+    -->
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9fafb;
+        }
+        .lotte-red-text { color: #f32819; }
+        .lotte-red-dark-text { color: #cc0000; }
+        .bg-lotte-red { background-color: #f32819; }
+        .border-lotte-red { border-color: #f32819; }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 40vh;
+            width: 100%;
+            max-width: 900px;
+        }
+        .kpi-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            border-left: 5px solid #f32819;
+            transition: all 0.3s ease-in-out;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+         .kpi-card-green {
+            border-left: 5px solid #b6d7a8;
+        }
+        .section-card {
+             background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            margin-bottom: 2rem;
+        }
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #0e0e0e;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f32819;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+         h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #0e0e0e;
+            margin-bottom: 1rem;
+        }
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #cc0000;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .analysis-text {
+            margin-top: 1.5rem;
+            color: #4a4a4a;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            max-width: 80ch;
+        }
+        .recommendation-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .recommendation-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #b6d7a8;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white py-6 shadow-md">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold lotte-red-text">Campaign Performance Report</h1>
+            <p class="text-lg text-gray-600 mt-2">Lotte Finance | Unsecured Loan | Jan 2025 - May 2025</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <!-- Slide 1: Overall Performance -->
+        <section id="overall" class="section-card">
+            <h2 class="text-center">Overall Campaign Performance</h2>
+            <div class="text-center mb-10">
+                <h3>A strategic focus on quality over quantity led to exceptional results in final-funnel metrics.</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-center">
+                <div class="kpi-card">
+                    <p class="text-xl text-gray-500 font-light">Leads vs. Plan</p>
+                    <p class="text-5xl font-bold text-gray-800 mt-2">99%</p>
+                    <p class="text-sm text-gray-500 mt-2">Slightly below plan, reflecting a focus on quality.</p>
+                </div>
+                <div class="kpi-card kpi-card-green">
+                    <p class="text-xl text-gray-500 font-light">Qualified Leads vs. Plan</p>
+                    <p class="text-5xl font-bold text-gray-800 mt-2">108%</p>
+                     <p class="text-sm text-green-600 font-semibold mt-2">▲ 8% Above Target</p>
+                </div>
+                <div class="kpi-card kpi-card-green">
+                    <p class="text-xl text-gray-500 font-light">Disbursement vs. Plan</p>
+                    <p class="text-5xl font-bold text-gray-800 mt-2">136%</p>
+                     <p class="text-sm text-green-600 font-semibold mt-2">▲ 36% Above Target</p>
+                </div>
+            </div>
+            <div class="chart-container h-[50vh]">
+                <canvas id="overallChart"></canvas>
+            </div>
+            <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> The campaign successfully exceeded its primary goals for Disbursement (+36%) and Qualified Leads (+8%). The total number of leads was slightly below target (99%), which reflects a deliberate strategy to focus on higher-quality audience segments. This approach sacrificed some top-of-funnel volume to maximize final conversions, proven by a Cost/Disbursement ratio that was 26% better than planned.</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: Monthly Performance -->
+        <section id="monthly" class="section-card">
+            <h2 class="text-center">Monthly Performance</h2>
+            <div class="chart-container h-[50vh]">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+            <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> Performance varied significantly by month. <strong>February</strong> was the most efficient month with the lowest Cost/Disbursement (13.23%), likely due to a smaller, more easily optimized budget. <strong>April</strong> also performed well (22.66%) despite a large budget, driven by the focus on the Simple Landing Page. <strong>May</strong> had the highest Cost/Disbursement (33.60%) due to several factors: budget fluctuations, frequent changes between landing pages, and the fact that disbursement data for May was not yet fully recorded as of early June.</p>
+            </div>
+        </section>
+
+        <!-- Slide 3: Channel Performance -->
+        <section id="channels" class="section-card">
+            <h2 class="text-center">Channel Performance</h2>
+            <div class="chart-container h-[50vh]">
+                <canvas id="channelChart"></canvas>
+            </div>
+             <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> <strong>SEM</strong> was the most effective channel for driving final conversions, achieving the lowest Cost/Disbursement (19%) despite having the largest budget. While <strong>GPM</strong> delivered the cheapest leads (lowest CPL & CPQL), its high Cost/Disbursement (33%) indicates that these leads were of lower quality and harder to convert into actual loans.</p>
+            </div>
+        </section>
+
+        <!-- Slide 4: Location Performance -->
+        <section id="locations" class="section-card">
+             <h2 class="text-center">Location Performance</h2>
+             <div class="chart-container h-[50vh]">
+                <canvas id="locationChart"></canvas>
+            </div>
+            <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> The **Central** and **Mekong** regions were the clear winners, boasting an exceptionally low Cost/Disbursement of only 14%. This is significantly more efficient than the South (32%) and especially the North (45%), which was the most expensive region despite receiving the second-largest budget allocation.</p>
+            </div>
+        </section>
+
+        <!-- Slide 5: Landing Page Performance -->
+        <section id="landingpages" class="section-card">
+            <h2 class="text-center">Landing Page Performance</h2>
+            <div class="chart-container h-[50vh]">
+                <canvas id="lpChart"></canvas>
+            </div>
+             <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> Performance was heavily influenced by budget and timing. At first glance, the `Normal LP` appears superior with a 15% Cost/Disbursement. However, this was largely achieved in Jan/Feb with smaller budgets. Conversely, the `Simple LP` was used during high-budget months, especially May, where its performance was impacted by incomplete disbursement data. The `Simple LP` remains a highly effective tool for generating low-cost leads (CPL/CPQL) at scale.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 6: Keyword Performance -->
+        <section id="keywords" class="section-card">
+             <h2 class="text-center">Top Keyword Groups</h2>
+             <div class="chart-container h-[60vh]">
+                <canvas id="keywordChart"></canvas>
+            </div>
+             <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> Out of 25 keyword groups, those with clear intent demonstrated the best performance. Niche product keywords like **"Vay Bảo Hiểm Nhân Thọ" (Loan by Life Insurance)** and brand-related terms **(Lotte Finance)** were the most efficient. In contrast, indirect keywords like "buy car" or "fix house" received little budget from the system due to low relevance to the landing page content.</p>
+            </div>
+        </section>
+
+        <!-- Slide 7: Audience Performance -->
+        <section id="audience" class="section-card">
+             <h2 class="text-center">Audience Performance (GPM & GDE)</h2>
+            <div class="chart-container h-[50vh]">
+                <canvas id="audienceChart"></canvas>
+            </div>
+             <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> **Retargeting** was by far the most effective strategy, yielding the lowest Cost/Disbursement (13.73%). This proves the value of re-engaging users who have already shown interest. Further segmenting the "past performance" audience by gender **(Female)** also proved effective (22.05%). Combining the high-performance audience with a normal targeting audience diluted the quality and resulted in the poorest performance (33.69%).</p>
+            </div>
+        </section>
+        
+        <!-- Slide 8: Banner Performance -->
+        <section id="banners" class="section-card">
+            <h2 class="text-center">Banner Package Performance</h2>
+            <div class="chart-container h-[50vh]">
+                <canvas id="bannerChart"></canvas>
+            </div>
+             <div class="analysis-text mx-auto">
+                <p><strong>Analysis:</strong> **Pack 1** significantly outperformed Pack 2. Its creative, which combined authentic imagery of people with clear program highlights, resonated better with target audiences and drove better performance. In contrast, **Pack 2**, which relied only on promotional text, was considerably less effective, resulting in a Cost/Disbursement ratio more than double that of Pack 1.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 9: LP Optimization Recommendations -->
+        <section id="lp-optimization" class="section-card">
+            <h2 class="text-center">Recommendation: Landing Page Optimization</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-3 lotte-red-text">1. Filter Unqualified Leads</h3>
+                    <p class="mb-4">To reduce processing costs for ineligible "freelancer" applications, implement a pre-screening step on the registration form.</p>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                        <p class="font-semibold">Proposed Solution:</p>
+                        <div class="mt-2 flex items-center space-x-4">
+                            <span class="text-3xl">👤</span>
+                            <div>
+                                <label for="job" class="block text-sm font-medium text-gray-700">Occupation</label>
+                                <select id="job" name="job" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-lotte-red focus:border-lotte-red sm:text-sm rounded-md">
+                                    <option>Salaried Employee</option>
+                                    <option>Business Owner</option>
+                                    <option>Freelancer</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="mt-4 flex items-center bg-red-100 border-l-4 border-red-500 text-red-700 p-3 rounded-md">
+                            <span class="text-2xl mr-3">🚫</span>
+                            <p class="text-sm">If "Freelancer" is selected, show message: "We are sorry, but Lotte Finance does not currently support loans for freelancers."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-3 lotte-red-text">2. Create Dedicated Landing Pages</h3>
+                    <p class="mb-4">Improve relevance and Google Ads Quality Score by creating specific landing pages for major SEM keyword groups.</p>
+                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                        <p class="font-semibold">Current Flow:</p>
+                        <div class="text-center p-2 mt-2 rounded-md bg-yellow-100">"Salary Loan" Ad ➜ Generic LP</div>
+                        <div class="text-center p-2 mt-2 rounded-md bg-yellow-100">"Consumer Loan" Ad ➜ Generic LP</div>
+                        
+                        <p class="font-semibold mt-4">Proposed Flow:</p>
+                        <div class="text-center p-2 mt-2 rounded-md bg-green-100">"Salary Loan" Ad ➜ **Salary Loan LP**</div>
+                        <div class="text-center p-2 mt-2 rounded-md bg-green-100">"Consumer Loan" Ad ➜ **Consumer Loan LP**</div>
+                        
+                         <div class="mt-4 flex items-center bg-green-100 border-l-4 border-green-500 text-green-700 p-3 rounded-md">
+                            <span class="text-2xl mr-3">📈</span>
+                            <p class="text-sm"><strong>Benefit:</strong> Higher relevance leads to lower costs, better ad positions, and increased conversion rates.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Data Optimization -->
+        <section id="data-optimization" class="section-card">
+            <h2 class="text-center">Recommendation: Data & System Optimization</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
+                <!-- Part 1: Ads & CRM Integration -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-3 lotte-red-text">1. Deepen Ad Optimization with CRM Data</h3>
+                    <p class="mb-4 text-sm text-gray-600"><strong>Problem:</strong> Ad platforms currently optimize for initial `Leads`, not final business results like `Qualified Leads` or `Disbursement`.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-2xl">📢</span>
+                            <span class="font-medium">Ad Platforms (Google, Facebook, TikTok)</span>
+                        </div>
+                        <div class="flex justify-center"><span class="text-2xl text-gray-400">↓</span></div>
+                        <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-2xl">👤</span>
+                            <span class="font-medium">User Submits Lead</span>
+                        </div>
+                        <div class="flex justify-center"><span class="text-2xl text-gray-400">↓</span></div>
+                        <div class="relative flex items-center space-x-3 p-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm">
+                            <span class="text-2xl">🗄️</span>
+                            <span class="font-medium">LFVN CRM System</span>
+                            <div class="absolute -right-10 top-1/2 -translate-y-1/2 flex items-center">
+                                <span class="text-2xl text-green-500 transform -scale-x-100">↩</span>
+                                <span class="text-xs -ml-2 text-green-600 font-semibold">Real-time<br>Feedback</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-semibold text-gray-800">Benefits:</h4>
+                        <ul class="mt-2 space-y-2 text-sm">
+                            <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span><strong>Deeper Optimization:</strong> Ad algorithms learn from actual business outcomes to find customers most likely to receive a loan.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span><strong>Risk Mitigation:</strong> Automatically reduce ad spend on audiences with high rates of bad debt or ineligibility.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span><strong>Data Security:</strong> Connection via Click ID ensures sensitive customer information remains secure within the CRM.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Part 2: Unify Marketing Data -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-3 lotte-red-text">2. Unify Fragmented Marketing Data</h3>
+                    <p class="mb-4 text-sm text-gray-600"><strong>Problem:</strong> Data from each channel (Google, Facebook, TikTok, etc.) is siloed, preventing cross-channel optimization and insights.</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="font-semibold text-center mb-2">Before: Siloed Data</p>
+                            <div class="flex flex-col items-center space-y-1">
+                                <div class="p-2 bg-yellow-100 rounded-md w-full text-center text-sm">Google Ads</div>
+                                <div class="text-gray-400 text-xs">↓</div>
+                                <div class="p-2 border border-yellow-400 rounded-md w-full text-center text-sm">Google Data</div>
+                                <div class="p-2 bg-blue-100 rounded-md w-full text-center mt-2 text-sm">Facebook Ads</div>
+                                <div class="text-gray-400 text-xs">↓</div>
+                                <div class="p-2 border border-blue-400 rounded-md w-full text-center text-sm">Facebook Data</div>
+                                <div class="p-2 bg-gray-200 rounded-md w-full text-center mt-2 text-sm">TikTok Ads</div>
+                                <div class="text-gray-400 text-xs">↓</div>
+                                <div class="p-2 border border-gray-400 rounded-md w-full text-center text-sm">TikTok Data</div>
+                            </div>
+                        </div>
+                        <div>
+                             <p class="font-semibold text-center mb-2">After: Unified Platform</p>
+                             <div class="flex flex-col items-center h-full">
+                                <div class="p-2 bg-yellow-100 rounded-md w-full text-center text-sm">Google Ads</div>
+                                <div class="p-2 bg-blue-100 rounded-md w-full text-center mt-2 text-sm">Facebook Ads</div>
+                                <div class="p-2 bg-gray-200 rounded-md w-full text-center mt-2 text-sm">TikTok Ads</div>
+                                 <div class="flex justify-around w-full mt-2">
+                                     <span class="text-gray-400 text-2xl">↘</span>
+                                     <span class="text-gray-400 text-2xl">↓</span>
+                                     <span class="text-gray-400 text-2xl">↙</span>
+                                 </div>
+                                 <div class="relative p-4 border-2 border-green-500 rounded-lg w-full text-center mt-2 bg-green-50 flex-grow flex items-center justify-center">
+                                    <span class="font-bold">Unified Data Platform</span>
+                                     <div class="absolute -bottom-5 flex justify-around w-full">
+                                         <span class="text-green-500 text-2xl transform rotate-45">↩</span>
+                                         <span class="text-green-500 text-2xl transform -rotate-45 -scale-x-100">↪</span>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                     <div class="mt-8 flex items-center bg-green-100 border-l-4 border-green-500 text-green-700 p-3 rounded-md">
+                        <span class="text-2xl mr-3">💡</span>
+                        <p class="text-sm"><strong>Benefit:</strong> Enables powerful cross-channel strategies, such as using high-performing audience data from Google to improve targeting on Facebook or TikTok, maximizing overall ROI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Advanced Targeting -->
+        <section id="advanced-targeting" class="section-card">
+            <h2 class="text-center">Recommendation: Advanced Audience Targeting</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-3 lotte-red-text">1. Custom Intent & In-Market Audiences</h3>
+                    <p class="mb-4">Target users who are actively researching loans and competitors on Google Search and YouTube. This high-intent audience is more likely to convert.</p>
+                    <div class="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                         <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-2xl">🔍</span>
+                            <div>
+                                <p class="font-semibold">Users searching for:</p>
+                                <p class="text-sm text-gray-600">"competitor loan rates", "personal loan application", "fast cash loan"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-3 lotte-red-text">2. Lookalike & Value-Based Audiences</h3>
+                    <p class="mb-4">Use CRM data to create audiences that "look like" your best customers (those with successful disbursements and good repayment history).</p>
+                    <div class="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                         <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                            <span class="text-2xl">🏆</span>
+                            <div>
+                                <p class="font-semibold">Source Audience:</p>
+                                <p class="text-sm text-gray-600">List of customers with successful disbursements from CRM.</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center"><span class="text-2xl text-gray-400">↓</span></div>
+                        <div class="flex items-center space-x-3 p-3 bg-green-100 rounded-lg">
+                             <span class="text-2xl">✨</span>
+                            <div>
+                                <p class="font-semibold">Google's Lookalike Audience:</p>
+                                <p class="text-sm text-green-700">Find new users with similar behaviors to high-value customers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Bidding Strategy -->
+        <section id="bidding-strategy" class="section-card">
+             <h2 class="text-center">Recommendation: Value-Based Bidding</h2>
+             <div class="text-center mb-8">
+                 <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Shift from optimizing for simple `Leads` to optimizing for actual business value. This requires assigning different values to key conversion steps.</p>
+             </div>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                 <div class="p-4 text-center">
+                     <div class="p-4 bg-red-100 border-2 border-red-200 rounded-full h-24 w-24 mx-auto flex items-center justify-center">
+                         <p class="font-bold text-2xl lotte-red-text">1x</p>
+                     </div>
+                     <h3 class="text-lg font-semibold mt-4">Initial Lead</h3>
+                     <p class="text-sm text-gray-600">Lowest value, high volume.</p>
+                 </div>
+                 <div class="p-4 text-center">
+                     <div class="p-4 bg-orange-100 border-2 border-orange-200 rounded-full h-24 w-24 mx-auto flex items-center justify-center">
+                         <p class="font-bold text-2xl text-orange-500">10x</p>
+                     </div>
+                     <h3 class="text-lg font-semibold mt-4">Qualified Lead</h3>
+                     <p class="text-sm text-gray-600">Higher value, indicates strong potential.</p>
+                 </div>
+                 <div class="p-4 text-center">
+                     <div class="p-4 bg-green-100 border-2 border-green-200 rounded-full h-24 w-24 mx-auto flex items-center justify-center">
+                         <p class="font-bold text-2xl text-green-600">100x</p>
+                     </div>
+                     <h3 class="text-lg font-semibold mt-4">Disbursement</h3>
+                     <p class="text-sm text-gray-600">Highest value, direct business impact.</p>
+                 </div>
+             </div>
+              <div class="analysis-text mx-auto mt-4">
+                <p><strong>Benefit:</strong> By implementing value-based bidding strategies like `Target ROAS` or `Maximize Conversion Value` in Google Ads, the algorithm will automatically bid higher for users more likely to reach the `Disbursement` stage, and lower for users who only show potential for an initial lead. This dramatically improves the return on ad spend (ROAS) and focuses the budget on what truly matters.</p>
+            </div>
+        </section>
+
+        <!-- Slide 13: Proposed Media Plan -->
+        <section id="media-plan" class="section-card">
+            <h2 class="text-center">Proposed Media Plan: Next Campaign</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                <div class="lg:col-span-1">
+                     <h3 class="text-xl font-bold mb-4">Total Budget Allocation</h3>
+                     <p class="text-sm text-gray-600 mb-4">The proposed budget is primarily allocated to Google Ads, with a smaller portion for TikTok Ads to test and expand reach.</p>
+                    <div class="chart-container h-64">
+                        <canvas id="mediaPlanChart"></canvas>
+                    </div>
+                </div>
+                 <div class="lg:col-span-1">
+                     <h3 class="text-xl font-bold mb-4">Google Ads Channel Mix</h3>
+                      <p class="text-sm text-gray-600 mb-4">Within Google Ads, the majority of the budget (70%) is dedicated to high-intent Search campaigns (SEM).</p>
+                    <div class="chart-container h-64">
+                        <canvas id="googleMixChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 mt-8">
+                     <h3 class="text-xl font-bold mb-4 text-center">Plan Details & KPI Estimates</h3>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3">Platform</th>
+                                    <th scope="col" class="px-4 py-3 text-right">Budget (VND)</th>
+                                    <th scope="col" class="px-4 py-3 text-right">Raw Lead (Est.)</th>
+                                    <th scope="col" class="px-4 py-3 text-right">Qualified Lead (Est.)</th>
+                                    <th scope="col" class="px-4 py-3 text-right">Cost/Disb. (Est.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">TikTok Ads</th>
+                                    <td class="px-4 py-3 text-right">768,000,000</td>
+                                    <td class="px-4 py-3 text-right">12,800</td>
+                                    <td class="px-4 py-3 text-right">6,400</td>
+                                    <td class="px-4 py-3 text-right">30%</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Google Ads</th>
+                                    <td class="px-4 py-3 text-right">2,520,000,000</td>
+                                    <td class="px-4 py-3 text-right">46,667</td>
+                                    <td class="px-4 py-3 text-right">28,000</td>
+                                    <td class="px-4 py-3 text-right">30%</td>
+                                </tr>
+                                <tr class="bg-gray-50 font-semibold">
+                                     <th scope="row" class="px-4 py-3 text-gray-900">Total</th>
+                                     <td class="px-4 py-3 text-right text-gray-900">3,288,000,000</td>
+                                     <td class="px-4 py-3 text-right text-gray-900">59,467</td>
+                                     <td class="px-4 py-3 text-right text-gray-900">34,400</td>
+                                     <td class="px-4 py-3 text-right text-gray-900">30%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Summary -->
+        <section id="summary" class="section-card">
+            <h2 class="text-center">Summary & Recommendations</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-8 mt-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">Key Learnings</h3>
+                    
+                    <h4 class="lotte-red-text">Channel Performance</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4 mb-4">
+                        <li><strong>SEM</strong> is the most efficient channel for final disbursement (19% Cost/Disb) despite higher lead costs.</li>
+                        <li><strong>GPM</strong> provides the cheapest leads but is least efficient for disbursement (33% Cost/Disb), suggesting lower lead quality.</li>
+                    </ul>
+
+                    <h4 class="lotte-red-text">Audience & Targeting</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4 mb-4">
+                        <li><strong>Top Keywords:</strong> Brand ("Lotte Finance") and niche product ("Vay Bảo Hiểm Nhân Thọ") keywords are most effective.</li>
+                        <li><strong>Underperforming Keywords:</strong> Indirect keywords ("buy car", "fix house") do not receive significant distribution due to low relevance.</li>
+                        <li><strong>Top Audiences:</strong> Retargeting is the most efficient audience (13.7% Cost/Disb), followed by the performance-based Female audience (22.05%).</li>
+                         <li><strong>Poor Audiences:</strong> Combining past performance with normal TA dilutes quality and is least effective (33.69%).</li>
+                    </ul>
+                     
+                    <h4 class="lotte-red-text">Creative & Landing Page</h4>
+                     <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4 mb-4">
+                        <li><strong>Banner Pack 1</strong>, which combines authentic imagery with clear offers, is significantly more effective than the text-only Pack 2.</li>
+                        <li>The **Normal Landing Page** yields higher quality leads and better final conversion than the Simple LP, despite a higher initial CPL.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">Action Plan</h3>
+
+                    <h4 class="text-gray-800">Channel Strategy</h4>
+                     <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4 mb-4">
+                        <li>Allocate the majority of the budget to **SEM** due to its proven efficiency. Limit budget for GPM.</li>
+                        <li>**SEM:** Expand campaigns with Brand and Niche Product keywords, directing traffic to the Normal LP or new dedicated LPs.</li>
+                        <li>**GDE/GPM:** Use primarily for **Retargeting** and Brand Awareness campaigns, not for new lead generation.</li>
+                    </ul>
+
+                     <h4 class="text-gray-800">Audience Targeting</h4>
+                     <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4 mb-4">
+                        <li>Allocate budget towards top-performing keyword groups.</li>
+                        <li>Prioritize and increase budget for **Retargeting** campaigns.</li>
+                        <li><strong>Implement Advanced Targeting:</strong> Use Lookalike and Custom Intent audiences in Google Ads to find high-value users.</li>
+                    </ul>
+
+                    <h4 class="text-gray-800">Creative Strategy</h4>
+                     <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4 mb-4">
+                        <li>Focus budget exclusively on **Banner Pack 1**.</li>
+                        <li>Produce more banners and videos featuring authentic human imagery tailored to specific audiences and offers.</li>
+                    </ul>
+                    
+                    <h4 class="text-gray-800">Landing Page & Data Optimization</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 pl-4">
+                        <li>Create **Dedicated LPs** for top keyword groups to improve Quality Score and conversion rates.</li>
+                        <li>Use the **Normal LP** for new lead acquisition campaigns.</li>
+                        <li>**Filter at the Source:** Add a "freelancer" filter to the registration form.</li>
+                        <li>**Optimize Data Systems:** Integrate CRM data with ad platforms for deeper, value-based bidding and unify fragmented data sources.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="text-center py-6 bg-gray-800 text-white">
+        <p>&copy; 2025 Lotte Finance. Confidential Performance Report.</p>
+    </footer>
+
+<script>
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+            return label.join(' ');
+        }
+        return label;
+    };
+
+    const wrapLabel = (label) => {
+        const maxLength = 16;
+        if (label.length <= maxLength) return label;
+        const words = label.split(' ');
+        let lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > maxLength) {
+                lines.push(currentLine.trim());
+                currentLine = '';
+            }
+            currentLine += word + ' ';
+        });
+        lines.push(currentLine.trim());
+        return lines.filter(line => line.length > 0);
+    };
+
+    const colors = {
+        red: 'rgba(229, 46, 45, 0.8)',
+        blue: 'rgba(0, 82, 160, 0.8)',
+        orange: 'rgba(247, 148, 29, 0.8)',
+        green: 'rgba(40, 167, 69, 0.8)',
+        darkGray: 'rgba(54, 62, 70, 0.8)',
+        
+        red_border: 'rgb(229, 46, 45)',
+        blue_border: 'rgb(0, 82, 160)',
+        orange_border: 'rgb(247, 148, 29)',
+        green_border: 'rgb(40, 167, 69)',
+        darkGray_border: 'rgb(54, 62, 70)',
+    };
+    
+    const defaultOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    title: tooltipTitleCallback
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: '#e9e9e9',
+                    borderDash: [2, 5],
+                }
+            }
+        }
+    };
+
+    // Chart 1: Overall Performance
+    const overallCtx = document.getElementById('overallChart').getContext('2d');
+    new Chart(overallCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Budget', 'Leads', 'Qualified Leads', 'Disbursement'],
+            datasets: [{
+                label: 'Plan',
+                data: [2637579241, 50567, 28790, 8792],
+                 backgroundColor: colors.darkGray,
+                borderColor: colors.darkGray_border,
+                borderWidth: 1
+            }, {
+                label: 'Actual',
+                data: [2637579241, 50073, 31093, 11962],
+                backgroundColor: colors.red,
+                borderColor: colors.red_border,
+                borderWidth: 1
+            }]
+        },
+        options: { ...defaultOptions,
+             scales: {
+                x: {},
+                y: {
+                    type: 'logarithmic',
+                    beginAtZero: true,
+                    ticks: {
+                       callback: function(value, index, values) {
+                            if (value === 1000000000) return '1B';
+                            if (value === 1000000) return '1M';
+                            if (value === 100000) return '100K';
+                            if (value === 10000) return '10K';
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Chart 2: Monthly Performance
+    const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+    new Chart(monthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            datasets: [
+                {
+                    type: 'bar',
+                    label: 'Budget (VND)',
+                    data: [136904916, 293729681, 586531566, 779771177, 840641901],
+                    backgroundColor: colors.red,
+                    yAxisID: 'y',
+                },
+                {
+                    type: 'line',
+                    label: 'CPL (VND)',
+                    data: [52494, 59244, 50725, 47818, 57433],
+                    borderColor: colors.blue_border,
+                    backgroundColor: 'transparent',
+                    yAxisID: 'y1',
+                    tension: 0.2
+                },
+                {
+                    type: 'line',
+                    label: 'CPQL (VND)',
+                    data: [85512, 88821, 79015, 79585, 93780],
+                    borderColor: colors.orange_border,
+                    backgroundColor: 'transparent',
+                    yAxisID: 'y1',
+                    tension: 0.2
+                },
+                 {
+                    type: 'line',
+                    label: '% Cost/Disbursement',
+                    data: [23.73, 13.23, 18.21, 22.66, 33.60],
+                    borderColor: colors.green_border,
+                    backgroundColor: 'transparent',
+                    borderDash: [5, 5],
+                    yAxisID: 'y2',
+                    tension: 0.2
+                }
+            ]
+        },
+        options: {
+            ...defaultOptions,
+            scales: {
+                x: { grid: { display: false }},
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: { display: true, text: 'Budget (VND)'}
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    grid: { drawOnChartArea: false },
+                    title: { display: true, text: 'Cost per Lead (VND)'}
+                },
+                y2: {
+                    type: 'linear',
+                    display: false,
+                    position: 'right',
+                     title: { display: true, text: '%'}
+                }
+            }
+        }
+    });
+
+    // Chart 3: Channel Performance
+    const channelCtx = document.getElementById('channelChart').getContext('2d');
+    new Chart(channelCtx, {
+        type: 'bar',
+        data: {
+            labels: ['SEM', 'GDE', 'GPM'],
+            datasets: [
+                {
+                    label: 'Budget (VND)',
+                    data: [1887372211, 414953027, 335051866],
+                    backgroundColor: colors.red,
+                    yAxisID: 'y'
+                },
+                {
+                    type: 'line',
+                    label: 'CPQL (VND)',
+                    data: [94260, 72329, 62862],
+                    borderColor: colors.orange_border,
+                    yAxisID: 'y1',
+                     tension: 0.2
+                },
+                 {
+                    type: 'line',
+                    label: '% Cost/Disbursement',
+                    data: [19, 24, 33],
+                    borderColor: colors.green_border,
+                    borderDash: [5, 5],
+                    yAxisID: 'y2',
+                     tension: 0.2
+                }
+            ]
+        },
+         options: {
+            ...defaultOptions,
+            scales: {
+                x: { grid: { display: false }},
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'Budget (VND)' }
+                },
+                y1: {
+                    type: 'linear',
+                    position: 'right',
+                    grid: { drawOnChartArea: false },
+                     title: { display: true, text: 'Cost per Q.Lead (VND)' }
+                },
+                y2: {
+                    type: 'linear',
+                    display: false,
+                }
+            }
+        }
+    });
+
+     // Chart 4: Location Performance
+    const locationCtx = document.getElementById('locationChart').getContext('2d');
+    new Chart(locationCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Central', 'Mekong', 'South', 'North'],
+            datasets: [{
+                label: '% Cost/Disbursement',
+                data: [14, 14, 32, 45],
+                backgroundColor: [colors.green, colors.green, colors.orange, colors.red],
+                borderColor: [colors.green_border, colors.green_border, colors.orange_border, colors.red_border],
+                borderWidth: 1
+            }]
+        },
+        options: {...defaultOptions, indexAxis: 'y' }
+    });
+
+    // Chart 5: Landing Page Performance
+    const lpCtx = document.getElementById('lpChart').getContext('2d');
+    new Chart(lpCtx, {
+        type: 'bar',
+        data: {
+            labels: ['CPL', 'CPQL', '% Cost/Disbursement'],
+            datasets: [{
+                label: 'Normal Landing Page',
+                data: [66136, 100291, 15],
+                 backgroundColor: colors.blue,
+                 borderColor: colors.blue_border,
+            },{
+                label: 'Simple Landing Page',
+                data: [46549, 77269, 32],
+                 backgroundColor: colors.red,
+                 borderColor: colors.red_border,
+            }]
+        },
+        options: {...defaultOptions}
+    });
+    
+    // Chart 6: Keyword Performance
+    const keywordCtx = document.getElementById('keywordChart').getContext('2d');
+    const keywordData = [
+        { group: 'Vay Bảo Hiểm Nhân Thọ', cost: 2.68 },
+        { group: 'Vay Lotte Finance', cost: 9.33 },
+        { group: 'Vay Theo Lương', cost: 10.04 },
+        { group: 'Lotte Finance', cost: 13.30 },
+        { group: 'Ngân hàng Lotte Finance', cost: 13.82 },
+        { group: 'Vay Tín Chấp', cost: 19.74 },
+        { group: 'Công Ty Tài Chính', cost: 25.61 }
+    ].sort((a,b) => b.cost - a.cost);
+
+    new Chart(keywordCtx, {
+        type: 'bar',
+        data: {
+            labels: keywordData.map(d => wrapLabel(d.group)),
+            datasets: [{
+                label: '% Cost/Disbursement',
+                data: keywordData.map(d => d.cost),
+                backgroundColor: colors.blue,
+                borderColor: colors.blue_border,
+            }]
+        },
+        options: {...defaultOptions, indexAxis: 'y' }
+    });
+    
+    // Chart 7: Audience Performance
+    const audienceCtx = document.getElementById('audienceChart').getContext('2d');
+    const audienceLabels = [
+        wrapLabel('Retargeting'),
+        wrapLabel('Audience based on past performance_Female'),
+        wrapLabel('Audience based on past performance'),
+        wrapLabel('Audience based on past + Normal TA'),
+    ];
+    new Chart(audienceCtx, {
+        type: 'polarArea',
+        data: {
+            labels: audienceLabels,
+            datasets: [{
+                label: '% Cost/Disbursement',
+                data: [13.73, 22.05, 24.27, 33.69],
+                backgroundColor: [colors.green, colors.blue, colors.orange, colors.red]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+             plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 20,
+                        padding: 20,
+                    }
+                },
+                 tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback,
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+             },
+             scale: {
+                ticks: {
+                    z: 1
+                }
+             }
+        }
+    });
+
+    // Chart 8: Banner Performance
+    const bannerCtx = document.getElementById('bannerChart').getContext('2d');
+    new Chart(bannerCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Pack 1', 'Pack 2'],
+            datasets: [
+                {
+                    label: 'CPQL (VND)',
+                    data: [65977, 88168],
+                    backgroundColor: colors.orange,
+                    yAxisID: 'y'
+                },
+                {
+                    type: 'line',
+                    label: '% Cost/Disbursement',
+                    data: [23.70, 49.26],
+                    borderColor: colors.green_border,
+                    borderDash: [5, 5],
+                    yAxisID: 'y1',
+                    tension: 0.2
+                }
+            ]
+        },
+        options: {
+            ...defaultOptions,
+            scales: {
+                x: {},
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'Cost (VND)' }
+                },
+                y1: {
+                    type: 'linear',
+                    position: 'right',
+                    grid: { drawOnChartArea: false },
+                    title: { display: true, text: '% Cost/Disbursement' }
+                }
+            }
+        }
+    });
+
+    // Chart 13: Media Plan
+    const mediaPlanCtx = document.getElementById('mediaPlanChart')?.getContext('2d');
+    if (mediaPlanCtx) {
+        new Chart(mediaPlanCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Google Ads', 'TikTok Ads'],
+                datasets: [{
+                    label: 'Budget Allocation',
+                    data: [2520000000, 768000000],
+                    backgroundColor: [colors.red, colors.darkGray],
+                    borderColor: '#f8f9fa',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if(label) { label += ': '; }
+                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(context.raw);
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Chart 14: Google Mix
+    const googleMixCtx = document.getElementById('googleMixChart')?.getContext('2d');
+    if(googleMixCtx) {
+         new Chart(googleMixCtx, {
+            type: 'pie',
+            data: {
+                labels: ['SEM (70%)', 'GDE (20%)', 'GPM (10%)'],
+                datasets: [{
+                    label: 'Google Ads Budget Mix',
+                    data: [70, 20, 10],
+                    backgroundColor: [colors.blue, colors.orange, colors.green],
+                    borderColor: '#f8f9fa',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                     tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if(label) { label += ': '; }
+                                label += context.raw + '%';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
